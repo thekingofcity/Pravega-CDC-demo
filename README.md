@@ -6,7 +6,15 @@ This page demonstrates how to preserve the CDC (Change Data Capture) from Mysql 
 
 This demo runs under `docker compose`, so a Linux or Windows (WSL2) environment is required.
 
-With `docker` enabled, download the [`docker-compose.yml`](https://github.com/pravega/flink-connectors/blob/master/docker-compose.yml) and run it with `docker-compose up -d`.
+With `docker` enabled, download the [`docker-compose.yml`](https://raw.githubusercontent.com/thekingofcity/Pravega-CDC-demo/master/docker-compose.yml).
+
+After having the `docker-compose.yml`, start it like this:
+
+```bash
+docker-compose up -d
+```
+
+This command automatically starts all the containers defined in the Docker Compose configuration in a detached mode. Run `docker ps` to check whether the 7 containers are running properly. You can also visit `http://localhost:12081/` to see if Flink is running normally.
 
 The Docker Compose environment consists of the following containers:
 
@@ -16,14 +24,6 @@ The Docker Compose environment consists of the following containers:
 - Pravega: preserve the Mysql change data.
 - Debezium: capture the Mysql change data and sink them to Pravega.
 - DataGen: the data generator. After the container is started, stock data from previous 5 days are pulled and updated to the Mysql. There were more than 1800 data points which should run at least half an hour.
-
-After having the `docker-compose.yml`, start it like this:
-
-```bash
-docker-compose up -d
-```
-
-This command automatically starts all the containers defined in the Docker Compose configuration in a detached mode. Run `docker ps` to check whether the 7 containers are running properly. You can also visit `http://localhost:12081/` to see if Flink is running normally.
 
 You may stop the containers at any time by `Ctrl-C` and they can be totally removed with:
 
@@ -68,7 +68,7 @@ CREATE TABLE metadata (
 );
 ```
 
-So that's it, let's head into change data capture.
+That's it, let's head into change data capture.
 
 ## Change data capture
 
@@ -136,7 +136,7 @@ CREATE TABLE metadata (
 );
 ```
 
-The above snippet declares two table with each has two fields based on the data format in Mysql. Both of them digest the changelog in Debezium format.
+The above snippet declares two table with each of them having two fields based on the data format in Mysql. Both of them digest the changelog in Debezium format.
 
 And here comes the final output:
 
