@@ -78,13 +78,13 @@ That's it, let's head into change data capture.
 
 The Debezium will start running after some fixed delay so Mysql is ready for update from datagen. As soon as data is updated in Mysql table, the Debezium server will read the binlog from mysql and sink the change log to Pravega, a reliable stream storage system, where these change log are preserved.
 
-A successful development will result change log data similar like this:
+A successful deployment will result change log data similar like this:
 
 ```bash
-$ docker-compose exec datagen python ./tail.py | tail
-b'{"before":{"id":"AAPL","value":140.69000244140625},"after":{"id":"AAPL","value":140.5850067138672},"source":{"version":"1.7.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1634716546000,"snapshot":"false","db":"stock","sequence":null,"table":"stock","server_id":1,"gtid":null,"file":"binlog.000002","pos":24961,"row":0,"thread":null,"query":null},"op":"u","ts_ms":1634716546543,"transaction":null}'
-b'{"before":{"id":"IBM","value":140.94000244140625},"after":{"id":"IBM","value":140.73500061035156},"source":{"version":"1.7.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1634716546000,"snapshot":"false","db":"stock","sequence":null,"table":"stock","server_id":1,"gtid":null,"file":"binlog.000002","pos":25272,"row":0,"thread":null,"query":null},"op":"u","ts_ms":1634716546544,"transaction":null}'
-b'{"before":{"id":"MU","value":67.13999938964844},"after":{"id":"MU","value":67.12999725341797},"source":{"version":"1.7.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1634716546000,"snapshot":"false","db":"stock","sequence":null,"table":"stock","server_id":1,"gtid":null,"file":"binlog.000002","pos":25581,"row":0,"thread":null,"query":null},"op":"u","ts_ms":1634716546544,"transaction":null}'
+$  docker-compose exec pravega ./bin/pravega-cli stream read stock/dbserver1.stock.stock
+{"before":{"id":"AAPL","value":140.69000244140625},"after":{"id":"AAPL","value":140.5850067138672},"source":{"version":"1.7.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1634716546000,"snapshot":"false","db":"stock","sequence":null,"table":"stock","server_id":1,"gtid":null,"file":"binlog.000002","pos":24961,"row":0,"thread":null,"query":null},"op":"u","ts_ms":1634716546543,"transaction":null}
+{"before":{"id":"IBM","value":140.94000244140625},"after":{"id":"IBM","value":140.73500061035156},"source":{"version":"1.7.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1634716546000,"snapshot":"false","db":"stock","sequence":null,"table":"stock","server_id":1,"gtid":null,"file":"binlog.000002","pos":25272,"row":0,"thread":null,"query":null},"op":"u","ts_ms":1634716546544,"transaction":null}
+{"before":{"id":"MU","value":67.13999938964844},"after":{"id":"MU","value":67.12999725341797},"source":{"version":"1.7.0.Final","connector":"mysql","name":"dbserver1","ts_ms":1634716546000,"snapshot":"false","db":"stock","sequence":null,"table":"stock","server_id":1,"gtid":null,"file":"binlog.000002","pos":25581,"row":0,"thread":null,"query":null},"op":"u","ts_ms":1634716546544,"transaction":null}
 ```
 
 > We read change log directly from Pravega.
