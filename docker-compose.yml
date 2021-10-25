@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   pravega:
-    image: fyang86/pravega:0.10.0-test
+    image: fyang86/pravega:0.10.1-65df3fbd-set-published-ip
     ports:
       - "9090:9090"
       - "12345:12345"
