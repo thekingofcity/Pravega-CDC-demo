@@ -159,7 +159,7 @@ CREATE TABLE `index` (
 INSERT INTO `index` SELECT sector, avg(`value`) as `index` FROM stock INNER JOIN metadata ON stock.id=metadata.id GROUP BY sector;
 ```
 
-Well done, you've gone through all the parts used in this demo and are definitely be able to build your own big data pipeline with change data capture as the data source. 🎉
+🎉 Well done, you've gone through all the parts used in this demo and are definitely be able to build your own big data pipeline with change data capture as the data source.
 
 ## Reference
 

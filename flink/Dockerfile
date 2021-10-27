@@ -4,7 +4,7 @@ MAINTAINER Pravega
 
 EXPOSE 8081
 
-COPY pravega-connectors-flink-1.13_2.12-0.10.0-291.ea7c049-SNAPSHOT.jar /opt/flink/lib/
+RUN wget -P /opt/flink/lib/ https://github.com/pravega/flink-connectors/releases/download/v0.10.1/pravega-connectors-flink-1.13_2.12-0.10.1.jar
 COPY flink-conf.yaml /opt/flink/conf/
 COPY init.sql /opt/flink/
 
